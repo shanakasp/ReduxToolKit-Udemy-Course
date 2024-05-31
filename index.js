@@ -1,4 +1,4 @@
-const { createAction } = require("@reduxjs/toolkit");
+const { createAction, nanoid } = require("@reduxjs/toolkit");
 
 console.log("Welcome to site 123");
 
@@ -13,5 +13,13 @@ const initialState = {
 const increment = createAction("INCREMENT");
 const decrment = createAction("DECREMENT");
 const resetCounter = createAction("RESET");
-const incrementBy = createAction("INCREMENT_BY");
-console.log(increment(20));
+const incrementBy = createAction("INCREMENT_BY", (amount, user) => {
+  return {
+    payload: {
+      amount,
+      user,
+      id: nanoid(),
+    },
+  };
+});
+console.log(incrementBy(20, "Ema"));
