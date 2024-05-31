@@ -4,6 +4,7 @@ const {
   createReducer,
   configureStore,
 } = require("@reduxjs/toolkit");
+const { default: logger } = require("redux-logger");
 
 console.log("Welcome to site 123");
 
@@ -69,6 +70,7 @@ const counterSlice2 = createReducer(initialState, (builder) => {
 
 const store = configureStore({
   reducer: counterSlice2,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
 //dispatch action
