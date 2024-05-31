@@ -1,4 +1,4 @@
-const { createAction, nanoid } = require("@reduxjs/toolkit");
+const { createAction, nanoid, createReducer } = require("@reduxjs/toolkit");
 
 console.log("Welcome to site 123");
 
@@ -23,3 +23,25 @@ const incrementBy = createAction("INCREMENT_BY", (amount, user) => {
   };
 });
 console.log(incrementBy(20, "Ema"));
+
+//Create reducer
+
+//Builder Callback function Create reducer
+createReducer(initialState, (builder) => {
+  builder.addCase(increment, (state) => {
+    state.counter += 1;
+  });
+
+  builder.addCase(decrment, (state) => {
+    state.counter -= 1;
+  });
+
+  builder.addCase(resetCounter, (state) => {
+    state.counter = 0;
+  });
+  builder.addCase(incrementBy, (state, action) => {
+    state.counter += action.payload.amount;
+  });
+});
+
+//Map object notation Create reducer
