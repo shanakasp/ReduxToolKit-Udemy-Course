@@ -27,7 +27,7 @@ console.log(incrementBy(20, "Ema"));
 //Create reducer
 
 //Builder Callback function Create reducer
-createReducer(initialState, (builder) => {
+const counterSlice2 = createReducer(initialState, (builder) => {
   builder.addCase(increment, (state) => {
     state.counter += 1;
   });
@@ -45,3 +45,17 @@ createReducer(initialState, (builder) => {
 });
 
 //Map object notation Create reducer
+// const counterSlice = createAction(initialState, {
+//   [increment]: (state) => {
+//     state.counter += 1;
+//   },
+//   [decrment]: (state) => {
+//     state.counter -= 1;
+//   },
+//   [resetCounter]: (state) => {
+//     state.counter = 0;
+//   },
+//   [incrementBy]: (state, action) => {
+//     state.counter += action.payload.amount;
+//   },
+// });
