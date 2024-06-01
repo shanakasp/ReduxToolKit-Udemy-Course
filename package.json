@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "index.js",
-    "nodemon": "index.js",
+    "nodemon": "createSlice.js",
     "run-dev": "index.js"
   },
   "author": "",
