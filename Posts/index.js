@@ -11,5 +11,5 @@ const initialState = {
 
 //Create Async Thunk
 
-get
+get 2
 //Slice
