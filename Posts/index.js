@@ -18,8 +18,8 @@ const initialState = {
 
 //Create Async Thunk
 const fetchPosts = createAsyncThunk("post/fetchPosts", async () => {
-  const data = await axios.get(API);
-  return data;
+  const res = await axios.get(API);
+  return res.data;
 });
 
 //Slice
