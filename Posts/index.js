@@ -1,4 +1,8 @@
-const { createAsyncThunk, createSlice } = require("@reduxjs/toolkit");
+const {
+  createAsyncThunk,
+  createSlice,
+  configureStore,
+} = require("@reduxjs/toolkit");
 const { default: axios } = require("axios");
 
 console.log("Hello Heloo");
@@ -14,19 +18,49 @@ const initialState = {
 
 //Create Async Thunk
 const fetchPosts = createAsyncThunk("post/fetchPosts", async () => {
-  const data = await axios.get;
+  const data = await axios.get(API);
   return data;
 });
 
 //Slice
-createSlice({
+const postSlice = createSlice({
   name: "posts",
   initialState,
   extraReducers: (builder) => {
     //handle lifecycle - pending - success - rejected
+
     //pending
+    builder.addCase(fetchPosts.pending, (state, action) => {
+      state.loading = true;
+    });
+
+    //fulfilled
+    builder.addCase(fetchPosts.fulfilled, (state, action) => {
+      state.loading = false;
+      state.posts = action.payload;
+    });
+
+    //rejected
+    builder.addCase(fetchPosts.rejected, (state, action) => {
+      state.posts = [];
+      state.loading = false;
+      state.error = action.error.message;
+    });
   },
 });
+
+//generate reducer
+const postReducer = postSlice.reducer;
+//store
+const store = configureStore({
+  reducer: postReducer,
+});
+
+//dispatch
+store.subscribe(() => {
+  console.log(store.getState());
+});
+store.dispatch(fetchPosts());
 
 //Phaces of Create Async Thunk
 // Pending , FulFilled, rejected
