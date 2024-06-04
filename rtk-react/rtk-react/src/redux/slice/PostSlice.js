@@ -1,46 +1,41 @@
-const {
-  createAsyncThunk,
-  createSlice,
-  configureStore,
-} = require("@reduxjs/toolkit");
-const { default: axios } = require("axios");
-
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import API from "../../utils/apiurl";
 console.log("Hello Heloo");
 
-const API = "https://jsonplaceholder.typicode.com/posts";
-
-//initial state
+// initial state
 const initialState = {
   posts: [],
   loading: false,
-  error: null,
+  error: "",
 };
 
-//Create Async Thunk
-const fetchPosts = createAsyncThunk("post/fetchPosts", async () => {
+// Create Async Thunk
+export const fetchPosts = createAsyncThunk("post/fetchPosts", async () => {
   const res = await axios.get(API);
   return res.data;
 });
 
-//Slice
+// Slice
 const postSlice = createSlice({
   name: "posts",
   initialState,
+  reducers: {},
   extraReducers: (builder) => {
-    //handle lifecycle - pending - success - rejected
+    // handle lifecycle - pending - success - rejected
 
-    //pending
-    builder.addCase(fetchPosts.pending, (state, action) => {
+    // pending
+    builder.addCase(fetchPosts.pending, (state) => {
       state.loading = true;
     });
 
-    //fulfilled
+    // fulfilled
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
       state.loading = false;
       state.posts = action.payload;
     });
 
-    //rejected
+    // rejected
     builder.addCase(fetchPosts.rejected, (state, action) => {
       state.posts = [];
       state.loading = false;
@@ -49,7 +44,7 @@ const postSlice = createSlice({
   },
 });
 
-//generate reducer
+// generate reducer
 const postReducer = postSlice.reducer;
 
 export default postReducer;
